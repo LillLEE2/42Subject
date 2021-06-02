@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junholee <junholee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/14 20:10:50 by junholee          #+#    #+#             */
-/*   Updated: 2021/06/02 17:11:43 by junholee         ###   ########.fr       */
+/*   Created: 2021/06/02 17:06:58 by junholee          #+#    #+#             */
+/*   Updated: 2021/06/02 17:07:05 by junholee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char				*ft_strjoin(char const *s1, char const *s2)
 {
