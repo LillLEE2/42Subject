@@ -6,37 +6,63 @@
 /*   By: junholee <junholee@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/21 16:47:21 by junholee          #+#    #+#             */
-/*   Updated: 2021/06/21 19:21:14 by junholee         ###   ########.fr       */
+/*   Updated: 2021/08/12 17:36:00 by junholee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdarg.h>
+#include "ft_printf.h"
 
-int sum(int count, ...)
+int	check_type(va_list value, char types)
 {
-	int res = 0;
-	va_list ap;
-	int i;
-
-	va_start(ap, count);
-
-	for(i = 0; i < count; i++)
-		res += va_arg(ap, int);
-	va_end(ap);
-
-	return (res);
+	if (types == 'c')
+		return (print_c(va_arg(value, int)));
+	else if (types == 's')
+		return (print_s(va_arg(value, char *)));
+	else if (types == 'd' || types == 'i')
+		return (print_i(va_arg(value, int)));
+	else if (types == '%')
+		return (ft_putchr('%'));
+	else if (types == 'x')
+		return (print_x(va_arg(value, unsigned int)));
+	else if (types == 'p')
+		return (print_p(va_arg(value, unsigned long)));
+	else if (types == 'X')
+		return (print_X(va_arg(value, unsigned int)));
+	else if (types == 'u')
+		return (print_u(va_arg(value, unsigned int)));
+	return (-1);
 }
 
-int		ft_printf(const char *format, ...)
+int	find_format(va_list value, char *format)
 {
-	
+	int		ret;
+	int		i;
+
+	ret = 0;
+	i = 0;
+	while (*format)
+	{
+		while (*format != '%' && *format)
+			ret += ft_putchr(*format++);
+		if (*format == '%')
+		{
+			format++;
+			i += check_type(value, *format);
+			if (i == -1)
+				return (-1);
+			format++;
+		}
+	}
+	return (ret + i);
 }
 
-int main()
+int	ft_printf(const char *format, ...)
 {
-	printf("%d\n", sum(10, 1,2,3,4,5,6,7,8,9,10));
+	int		ret;
+	va_list	value;
 
-	return(0);
+	va_start(value, format);
+	ret = find_format(value, (char *)format);
+	va_end(value);
+	return (ret);
 }
